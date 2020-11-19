@@ -28,11 +28,15 @@
 
 void passenger(int semid) {
     struct sembuf sops;
-    while(!semctl(semid, STATUS, GETVAL)) {}
+    while(!semctl(semid, STATUS, GETVAL)) {
+        sleep(1);
+    }
         Resize(CAN_SHIP, -1);
         Resize(CAN_BRIDGE, -1);
         Resize(CAN_BRIDGE, 1);
-    while(semctl(semid, STATUS, GETVAL)) {}
+    while(semctl(semid, STATUS, GETVAL)) {
+        sleep(1);
+    }
         Resize(CAN_BRIDGE, -1);
         Resize(CAN_BRIDGE, 1);
         Resize(CAN_SHIP, 1);
